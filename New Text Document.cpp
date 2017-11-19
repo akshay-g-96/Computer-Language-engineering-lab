@@ -1,0 +1,110 @@
+/*#include<iostream>
+#include<set>
+#include<map>
+using namespace std;
+
+set<string> concatenation(set<string> s,set<string> t){
+set<string> mystring;
+for(set<string>::iterator  it=s.begin();it!=s.end();it++)
+{
+    for(set<string>::iterator  it1=t.begin();it1!=t.end();it1++){
+        string temp;
+        temp=*it+*it1;
+        mystring.insert(temp);
+        }
+}
+return mystring;
+}
+
+set<string> res;
+void starclosure(set<string> s,int n){
+
+        if(n==0)
+        return;
+        else
+        {
+                    set<string> temp= concatenation(res,s);
+                    res.insert(temp.begin(),temp.end());
+                    starclosure(s,n-1);
+                }
+}
+
+int main()
+{
+    res.insert(" ");
+    string s[2]={"world","hello",};
+
+    std::set<string> myset (s,s+2);
+    starclosure(myset,2);
+    std::set<string>::iterator it;
+    for (it=res.begin(); it!=res.end(); ++it)
+    std::cout << ' ' << *it;
+    std::cout << '\n';
+}
+--------------------------------------------------------------------------*/
+#include<iostream>
+#include<algorithm>
+#include <cstring>
+using namespace std;
+int main()
+{
+        int n1,n2;
+        cout<<"Number of strings in lang1";
+        cin>>n1;
+        cout<<"Number of strings in lang1";
+        cin>>n2;
+        int n=n1+n2;
+        string s[n],s1[n1],s2[n2];
+
+        for(int i=0;i<n1;i++)
+        {
+                cin>>s1[i];
+                s[i]=s1[i];
+        }
+
+        for(int i=0;i<n2;i++)
+        {
+                cin>>s2[i];
+                s[i+n1]=s2[i];
+        }
+        sort(s,s+n);
+        int n3;
+        for(int k=0;;k++)
+        {
+                cout<<"1.union\n2.intersection\n3.concatenation";
+                cin>>n3;
+                switch(n3)
+                {
+                        case 1: cout<<s[0]<<endl;
+                                        for(int i=1;i<n;i++)
+                                        {
+                                                if(s[i]!=s[i-1])
+                                                cout<<s[i]<<endl;
+                                        }
+                                        break;
+
+                        case 2: for(int i=0;i<n-1;i++)
+                                        {
+                                                if(s[i]==s[i+1])
+                                                cout<<s[i]<<endl;
+                                        }
+                                        break;
+
+                        case 3: for(int i=0;i<n1;i++)
+                                        {
+                                                for(int j=0;j<n2;j++)
+                                                cout<<s1[i]<<s2[j]<<endl;
+                                        }
+                                        break;
+
+                        default:
+                                        cout<<"invlaid entry"<<endl;
+
+                }
+                cout<<"y:to continue\nn:to break"<<endl;
+                char a;
+                cin>>a;
+                if(a=='n')
+                break;
+        }
+}
